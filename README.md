@@ -4,7 +4,7 @@
 
 A Persian → English lookup dictionary for Kindle, built from three reusable lexical sources and indexed for Persian as it is actually written.
 
-**79,511 canonical entries, indexed under 737,616 unique lookup terms.**
+**79,511 canonical entries, indexed under 737,619 unique lookup terms.**
 
 **[Download the latest release →](https://github.com/aghamorad/morads-persian-english-dictionary/releases/latest)**
 
@@ -15,10 +15,10 @@ A Persian → English lookup dictionary for Kindle, built from three reusable le
 | | |
 |---|---|
 | Canonical entries | 79,511 |
-| Indexed lookup terms | 737,616 |
+| Indexed lookup terms | 737,619 |
 | Direction | Persian → English |
 | Format | MOBI7 Kindle dictionary |
-| File size | 29,019,933 bytes |
+| File size | 29,020,005 bytes |
 | Required lookup tests | 14/14 passing |
 | Build date | September 19, 2026 |
 
@@ -51,7 +51,7 @@ This build therefore:
 - uses real inflected forms recorded by Wiktionary where available;
 - adds conservative attachment aliases for plurals, possessives, and adjectival forms;
 - adds Arabic kaf/yeh, final alef maqsura, and ezāfeh variants;
-- refuses an alias when it would steal a spelling from another canonical headword;
+- refuses an alias only when it would be the same lookup string as another canonical headword, so recorded alternative spellings such as `مسأله` stay reachable alongside their folded forms;
 - converts imported HMT markup to escaped text, eliminating malformed source HTML and broken cross-links.
 
 ## Verified lookups

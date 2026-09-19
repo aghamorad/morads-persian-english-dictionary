@@ -230,10 +230,9 @@ def assign_aliases(entries: dict[str, LexiconEntry]) -> tuple[dict[str, list[str
             primary_label = index_label(entry.headword)
             if alias == primary_label:
                 continue
-            alias_merge_key = merge_key(alias)
-            if alias_merge_key in entries and alias_merge_key != entry.key:
-                conflicts += 1
-                continue
+            # Conflicts are judged by on-device index identity, not by the display-folded
+            # merge key: مسأله folds to مساله for display, but the device matches them as
+            # distinct strings, so a recorded form like مسأله belongs on its own entry.
             alias_index_key = index_key(alias)
             canonical_owner = canonical_owners.get(alias_index_key)
             if canonical_owner is not None and canonical_owner != entry.key:
