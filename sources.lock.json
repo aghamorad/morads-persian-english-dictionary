@@ -1,0 +1,26 @@
+{
+  "retrieved_on": "2026-09-19",
+  "sources": {
+    "hmt": {
+      "filename": "hmt-body.data",
+      "url": "https://raw.githubusercontent.com/ehsania/Persian-Glossaries-for-Apple-Dictionary/master/HMT_Persian_English.dictionary/Contents/Body.data",
+      "sha256": "b182dc5d657657d356e3902472cbd34abeb8880dca9ea691b92d3285e3f6a0d0",
+      "bytes": 14954057,
+      "license": "MIT"
+    },
+    "dehkhoda": {
+      "filename": "dehkhoda-lexicon.json",
+      "url": "https://huggingface.co/datasets/Maani/Dehkhoda-Lexicon/resolve/main/Dehkhoda_Lexicon.json",
+      "sha256": "530fb457e4054b3d30abf8f627bade0153927155a0a44efba3127ddb224e4bdf",
+      "bytes": 9913321,
+      "license": "CC BY-SA 4.0"
+    },
+    "kaikki": {
+      "filename": "kaikki-persian.jsonl",
+      "url": "https://kaikki.org/dictionary/Persian/kaikki.org-dictionary-Persian.jsonl",
+      "sha256": "93ef314907791fff4204ee86f2c9012141d50dff8ecc5b16f325a4dc1d111ed6",
+      "bytes": 91289908,
+      "license": "Wiktionary CC BY-SA 4.0 and GFDL"
+    }
+  }
+}

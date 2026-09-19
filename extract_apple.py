@@ -4,57 +4,45 @@
 from __future__ import annotations
 
 import argparse
-import re
 import struct
 import zlib
 from pathlib import Path
-
-
-SEP = b"\xff\xff\xff\xff"
 
 
 def u32(data: bytes, offset: int) -> int:
     return struct.unpack_from("<I", data, offset)[0]
 
 
-def split_entries(data: bytes) -> list[str]:
-    entries: list[str] = []
-    pos = 0
-    while pos + 4 <= len(data):
-        length = u32(data, pos)
-        pos += 4
-        entries.append(data[pos:pos + length].decode("utf-8"))
-        pos += length
-    return entries
-
-
-def process_chunk(chunk: bytes) -> list[str]:
+def process_chunk(chunk: bytes) -> bytes:
+    """Decompress a single chunk and return the raw decompressed bytes."""
     expected = u32(chunk, 0)
     decoded = zlib.decompress(chunk[4:])
     if len(decoded) != expected:
         raise ValueError("Apple Dictionary compressed chunk size mismatch")
-    return split_entries(decoded)
+    return decoded
 
 
 def extract_body(path: Path) -> list[str]:
     raw = path.read_bytes()
     header = raw[:96]
-    content = raw[96:]
-    values = [
-        u32(header, i)
-        for i in range(0, len(header), 4)
-        if header[i:i + 4] != SEP
-    ]
-    # The final header field is the number of chunks; this is how Apple's
-    # current Body.data layout is organized.
-    num_chunks = values[-1]
+    # Field [16] is the byte length of the chunk stream (at header byte 64).
+    # Walk until that many bytes are consumed.
+    stream_length = u32(header, 64)
+    content = raw[96:96 + stream_length]
     entries: list[str] = []
-    for _ in range(num_chunks):
-        _size_1 = u32(content, 0)
-        size_2 = u32(content, 4)
-        chunk = content[8:8 + size_2]
-        entries.extend(process_chunk(chunk))
-        content = content[8 + size_2:]
+    consumed = 0
+    while consumed + 8 <= len(content):
+        _size_1 = u32(content, consumed)
+        size_2 = u32(content, consumed + 4)
+        if size_2 == 0:
+            break
+        block_end = consumed + 8 + size_2
+        if block_end > len(content):
+            break
+        chunk = content[consumed + 8:block_end]
+        decoded = process_chunk(chunk)
+        entries.append(decoded.decode("utf-8"))
+        consumed += 8 + size_2
     return entries
 
 

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2560" viewBox="0 0 1600 2560">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071d36"/><stop offset="0.52" stop-color="#123e63"/><stop offset="1" stop-color="#06182d"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff0a8"/><stop offset="0.28" stop-color="#c99b42"/><stop offset="0.7" stop-color="#f1d879"/><stop offset="1" stop-color="#8c6228"/>
+    </linearGradient>
+    <filter id="shadow"><feGaussianBlur stdDeviation="18"/></filter>
+    <pattern id="grain" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="12" r="1.2" fill="#d9c27b" opacity=".12"/><circle cx="54" cy="42" r="1" fill="#fff" opacity=".05"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="2560" fill="url(#bg)"/>
+  <rect width="1600" height="2560" fill="url(#grain)"/>
+  <rect x="66" y="66" width="1468" height="2428" rx="12" fill="none" stroke="url(#gold)" stroke-width="5"/>
+  <rect x="92" y="92" width="1416" height="2376" rx="8" fill="none" stroke="#70a9a5" stroke-opacity=".45" stroke-width="2"/>
+  <g fill="none" stroke="url(#gold)" stroke-width="5" opacity=".9">
+    <path d="M160 310 C300 150 460 160 560 280 C460 225 350 250 280 360 C230 430 200 500 160 560"/>
+    <path d="M1440 310 C1300 150 1140 160 1040 280 C1140 225 1250 250 1320 360 C1370 430 1400 500 1440 560"/>
+    <path d="M160 2250 C300 2410 460 2400 560 2280 C460 2335 350 2310 280 2200 C230 2130 200 2060 160 2000"/>
+    <path d="M1440 2250 C1300 2410 1140 2400 1040 2280 C1140 2335 1250 2310 1320 2200 C1370 2130 1400 2060 1440 2000"/>
+  </g>
+  <g fill="none" stroke="#83c4bd" stroke-width="3" opacity=".75">
+    <path d="M130 420 Q260 300 380 360 T610 340"/><path d="M1470 420 Q1340 300 1220 360 T990 340"/>
+    <path d="M130 2140 Q260 2260 380 2200 T610 2220"/><path d="M1470 2140 Q1340 2260 1220 2200 T990 2220"/>
+  </g>
+  <g transform="translate(800 430)" fill="none" stroke="url(#gold)" stroke-width="4">
+    <circle r="112"/><circle r="94" stroke="#83c4bd"/><path d="M0-108 V108 M-108 0 H108 M-76-76 L76 76 M76-76 L-76 76"/>
+    <path d="M0-150 C24-126 24-100 0-76 C-24-100-24-126 0-150Z" fill="#c99b42"/>
+  </g>
+  <text x="800" y="760" text-anchor="middle" fill="#f4df91" font-family="Georgia, serif" font-size="82" letter-spacing="7">MORAD'S</text>
+  <text x="800" y="875" text-anchor="middle" fill="#fff7d1" font-family="Georgia, serif" font-size="92" letter-spacing="3">PERSIAN–ENGLISH</text>
+  <text x="800" y="1000" text-anchor="middle" fill="#f4df91" font-family="Georgia, serif" font-size="80" letter-spacing="8">DICTIONARY</text>
+  <path d="M390 1070 H1210" stroke="url(#gold)" stroke-width="4"/>
+  <text x="800" y="1155" text-anchor="middle" fill="#a9d4cc" font-family="Verdana, sans-serif" font-size="72">فرهنگ فارسی–انگلیسی</text>
+  <g transform="translate(800 1660)">
+    <ellipse cx="0" cy="300" rx="440" ry="64" fill="#000" opacity=".32" filter="url(#shadow)"/>
+    <path d="M-430 230 L-25 120 L0 150 L0 450 L-390 360 Z" fill="#e7d7ad" stroke="#9e7735" stroke-width="5"/>
+    <path d="M430 230 L25 120 L0 150 L0 450 L390 360 Z" fill="#d5c18d" stroke="#9e7735" stroke-width="5"/>
+    <path d="M-25 120 Q0 90 25 120 L0 150Z" fill="#6d4b22"/>
+    <g stroke="#9e7735" stroke-width="3" opacity=".7"><path d="M-360 220 L-55 155"/><path d="M-350 260 L-55 195"/><path d="M-340 300 L-55 235"/><path d="M360 220 L55 155"/><path d="M350 260 L55 195"/><path d="M340 300 L55 235"/></g>
+    <path d="M-390 360 Q-160 410 0 450 Q160 410 390 360" fill="none" stroke="#6d4b22" stroke-width="8"/>
+  </g>
+  <text x="800" y="2185" text-anchor="middle" fill="#d5c18d" font-family="Georgia, serif" font-size="37" letter-spacing="3">A PRACTICAL DICTIONARY FOR MODERN READERS</text>
+  <text x="800" y="2295" text-anchor="middle" fill="#f4df91" font-family="Georgia, serif" font-size="48" letter-spacing="6">MORAD MOAZAMI</text>
+</svg>
