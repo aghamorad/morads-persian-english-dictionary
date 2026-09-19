@@ -1,0 +1,5 @@
+build/apple-fa.xml
+build/source/
+tools/
+__pycache__/
+.DS_Store
