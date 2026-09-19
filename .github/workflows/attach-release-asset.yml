@@ -1,0 +1,24 @@
+name: Attach release asset
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach the file to
+        required: true
+      path:
+        description: Path of the file in this repository
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload asset to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ inputs.tag }}" "${{ inputs.path }}" --clobber
