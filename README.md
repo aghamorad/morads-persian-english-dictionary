@@ -4,7 +4,7 @@
 
 A Persian → English lookup dictionary for Kindle, built from three reusable lexical sources and indexed for Persian as it is actually written.
 
-**79,511 canonical entries, indexed under 737,619 unique lookup terms.**
+**79,511 canonical entries, indexed under 920,512 unique lookup terms.**
 
 **[Download the latest release →](https://github.com/aghamorad/morads-persian-english-dictionary/releases/latest)**
 
@@ -15,12 +15,12 @@ A Persian → English lookup dictionary for Kindle, built from three reusable le
 | | |
 |---|---|
 | Canonical entries | 79,511 |
-| Indexed lookup terms | 737,619 |
+| Indexed lookup terms | 920,512 |
 | Direction | Persian → English |
 | Format | MOBI7 Kindle dictionary |
-| File size | 29,020,005 bytes |
-| Required lookup tests | 14/14 passing |
-| Build date | September 19, 2026 |
+| File size | 34,606,581 bytes |
+| Required lookup tests | 23/23 passing |
+| Build date | September 21, 2026 |
 
 The entries are merged by Kindle-equivalent Persian spelling, so Arabic/Persian character variants, combining marks, and zero-width non-joiners do not create competing duplicate entries.
 
@@ -50,6 +50,7 @@ This build therefore:
 - stores connected index labels instead of literal ZWNJ duplicates;
 - uses real inflected forms recorded by Wiktionary where available;
 - adds conservative attachment aliases for plurals, possessives, and adjectival forms;
+- adds the plural indefinite (`کتاب‌هایی`), the plural carrying a singular possessive (`کتاب‌هایم`, `کتاب‌هایت`, `کتاب‌هایش`), and the space-separated indefinite after a silent heh (`خانه ای`), which is a separate on-device label because the device folds ZWNJ away before searching but does not fold a space;
 - adds Arabic kaf/yeh, final alef maqsura, and ezāfeh variants;
 - refuses an alias only when it would be the same lookup string as another canonical headword, so recorded alternative spellings such as `مسأله` stay reachable alongside their folded forms;
 - converts imported HMT markup to escaped text, eliminating malformed source HTML and broken cross-links.
@@ -71,6 +72,9 @@ The following all resolve in the published candidate using `kindling-cli lookup`
 | `کتابی` | attached `ی` |
 | `کتاب‌ها` | ZWNJ plural |
 | `فارسى` | final Arabic alef maqsura U+0649 |
+| `کتاب‌هایی` `روزهایی` `خانه‌هایی` `مشکل‌هایی` | plural indefinite `-هایی` |
+| `کتاب‌هایم` `کتاب‌هایت` `کتاب‌هایش` | plural with a singular possessive |
+| `خانه ای` `جلسه ای` | space-separated indefinite after a silent heh |
 
 Kindling's final MOBI self-check reports **18 P0 checks passed and 0 P1 warnings**.
 
@@ -145,5 +149,7 @@ LICENSE-NOTICE.md   attribution and redistribution terms
 - Source glosses can disagree or reflect different senses; source labels are retained so readers can distinguish them.
 - There is no pronunciation audio.
 - The release is intended for USB sideloading as a MOBI dictionary, not as KFX or a Send to Kindle conversion.
+- Arabic sound plurals are not generated mechanically. A rule attaching `-ین` or `-ات` to every consonant-final stem would produce junk (`مشکلین`, `کتابات`) alongside the real forms, so entries such as `ملاحظات`, `مهندسین`, `مورخین`, and `بازرسین` resolve only where a source records them. Several that do (`مورخان`, `معلمین`, `مشکلات`, `حوادث`) are covered.
+- The plural possessive series stops at the singular (`کتاب‌هایم`, `کتاب‌هایت`, `کتاب‌هایش`). The `-هایمان`, `-هایتان`, `-هایشان` forms were measured at roughly 4 MB of index for forms rarely typed, and were left out.
 
 This is a community release, not an Amazon dictionary.

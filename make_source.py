@@ -213,6 +213,19 @@ def generated_aliases(entry: LexiconEntry) -> set[str]:
         if stem.endswith(("ه", "ا", "و", "ی")):
             for suffix in ("ام", "ات", "اش"):
                 aliases.add(stem + suffix)
+        if not stem.endswith(("ا", "و")):
+            # The plural carries its own indefinite: کتابهایی. Not added for vowel-final stems.
+            aliases.add(stem + "هایی")
+            for possessive in ("م", "ت", "ش"):
+                # Only the singular possessives. کتابهایمان and its siblings are six more
+                # labels per entry for forms a reader almost never types; they cost far
+                # more index than they return.
+                aliases.add(stem + "های" + possessive)
+        if stem.endswith("ه"):
+            # The space-separated indefinite is its own on-device label: the device folds
+            # ZWNJ away before searching, so خانهای and خانهای collapse, but خانه ای does not.
+            aliases.add(stem + " ای")
+            aliases.add(stem + " ی")
         if "adj" in entry.parts_of_speech:
             aliases.add(stem + "تر")
             aliases.add(stem + "ترین")

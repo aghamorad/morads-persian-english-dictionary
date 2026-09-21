@@ -25,6 +25,17 @@ REQUIRED_LOOKUPS = (
     "کتابی",
     "کتاب‌ها",
     "فارسى",
+    # Inflected forms the alias generator now covers: plural indefinite, the spaced
+    # indefinite after a silent heh, and plural with a singular possessive.
+    "کتاب‌هایی",
+    "روزهایی",
+    "خانه‌هایی",
+    "مشکل‌هایی",
+    "خانه ای",
+    "جلسه ای",
+    "کتاب‌هایم",
+    "کتاب‌هایت",
+    "کتاب‌هایش",
 )
 
 
