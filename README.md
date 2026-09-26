@@ -14,6 +14,7 @@ A Persian → English lookup dictionary for Kindle, built from three reusable le
 
 | | |
 |---|---|
+| Version | 1.1.0 |
 | Canonical entries | 79,511 |
 | Indexed lookup terms | 920,512 |
 | Direction | Persian → English |
@@ -89,6 +90,14 @@ Kindling's final MOBI self-check reports **18 P0 checks passed and 0 P1 warnings
 Use USB rather than Send to Kindle. Amazon's conversion service can strip the MOBI dictionary index and turn the file into an ordinary book.
 
 Some Kindle firmware does not list Persian as a selectable default dictionary language. In that case, open a Persian book, tap a word, tap the dictionary name in the lookup panel, and choose this installed dictionary manually.
+
+## Keeping it current
+
+A Kindle cannot tell you that a newer dictionary exists. There is no popup, no in-app notice, and no update check — a lookup panel shows whatever `.mobi` was last copied onto the device, forever, until you replace it.
+
+So the version number in the table above is the whole mechanism. The badge at the top of this page and the download link both track the newest release. Compare that number against the build on your Kindle, and if yours is older, download the file again and follow the install steps with it. Replacing `Morads-Persian-English-Dictionary.mobi` in `documents` is the entire update; there is nothing to uninstall first.
+
+The number changes only when the built dictionary changes, so a newer number is always the signal to re-download.
 
 ## Rebuilding
 
