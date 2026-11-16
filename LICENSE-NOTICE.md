@@ -51,6 +51,6 @@ The compilation remains subject to the source attribution and ShareAlike obligat
 
 ## Snapshot integrity
 
-The source snapshot date is September 19, 2026. Exact URLs, file sizes, licences, and SHA-256 checksums for all three inputs are recorded in `sources.lock.json`.
+The source lockfile was refreshed on November 16, 2026. HMT and Dehkhoda retain the previously verified snapshots; the Kaikki Persian extraction reflects Wiktionary's October 2026 dump. Exact source URLs, file sizes, licences, and SHA-256 checksums are recorded in `sources.lock.json`.
 
 The build process preserves source labels in dictionary entries, merges equivalent Persian spellings, and does not invent new definitions. Generated lookup aliases redirect only to an existing sourced entry.
