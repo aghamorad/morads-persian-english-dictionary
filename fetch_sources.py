@@ -36,9 +36,15 @@ def main() -> None:
         with urllib.request.urlopen(request) as response, temporary.open("wb") as output:
             shutil.copyfileobj(response, output)
         actual = sha256(temporary)
-        if actual != source["sha256"]:
+        actual_bytes = temporary.stat().st_size
+        if actual != source["sha256"] or actual_bytes != source["bytes"]:
             temporary.unlink(missing_ok=True)
-            raise SystemExit(f"checksum mismatch for {name}: expected {source['sha256']}, got {actual}")
+            raise SystemExit(
+                f"source snapshot changed for {name}: "
+                f"expected sha256={source['sha256']} bytes={source['bytes']}; "
+                f"received sha256={actual} bytes={actual_bytes}. "
+                "Review the upstream version and update sources.lock.json explicitly."
+            )
         temporary.replace(target)
         print(f"downloaded {name}: {target}")
 
