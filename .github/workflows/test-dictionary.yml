@@ -1,0 +1,43 @@
+name: Test dictionary
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test lexicon, aliases and web exporter
+        run: python -m unittest discover -s tests -v
+      - name: Check browser JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Scripts(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.inside = False
+                  self.fragments = []
+              def handle_starttag(self, tag, attrs):
+                  if tag == "script":
+                      self.inside = True
+              def handle_endtag(self, tag):
+                  if tag == "script":
+                      self.inside = False
+              def handle_data(self, data):
+                  if self.inside:
+                      self.fragments.append(data)
+          parser = Scripts()
+          parser.feed(Path("web/index.html").read_text(encoding="utf-8"))
+          assert parser.fragments, "No app script found"
+          Path("/tmp/persian-dictionary-app.js").write_text("\n".join(parser.fragments), encoding="utf-8")
+          PY
+          node --check /tmp/persian-dictionary-app.js
+          node --check web/sw.js
+      - name: Validate editorial JSON
+        run: python -m json.tool lexicon/idioms.json > /dev/null

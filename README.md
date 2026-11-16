@@ -79,6 +79,36 @@ The following all resolve in the published candidate using `kindling-cli lookup`
 
 Kindling's final MOBI self-check reports **18 P0 checks passed and 0 P1 warnings**.
 
+## Browser edition for macOS, Windows, Android and iPhone (proposed)
+
+The same sourced lexicon can now be exported as a **static browser dictionary**, with no central lookup server, API subscription, or account required. It provides a responsive Persian search field, exact matches, spelling normalization, prefix suggestions, distinct source definitions, and one-click saving of the full data for offline use in a modern browser. It also includes a web app manifest and service worker, so users can add it to their home screen where supported.
+
+This is **not yet the published version**: the statistics and Kindle download above describe the existing 1.1.0 release. The cross-platform exporter and new editorial senses are proposed repository changes until built, reviewed and deployed. They do not change the current downloadable MOBI on their own.
+
+After publishing the code to main, go to **Repository Settings → Pages → Build and deployment → Source: GitHub Actions** to enable the deployment workflow. The resulting site will be served through GitHub Pages; do not advertise a URL until that deployment succeeds. The web edition is not a native Apple Dictionary, Windows Dictionary, or Android system lookup provider. It is an installable browser-based lookup tool.
+
+To build the web edition locally (after running fetch_sources.py):
+
+```bash
+python export_web.py \
+  --hmt-body data/hmt-body.data \
+  --dehkhoda data/dehkhoda-lexicon.json \
+  --kaikki data/kaikki-persian.jsonl \
+  --cover build/cover.png --out site
+python -m http.server --directory site 8000
+```
+
+Open http://localhost:8000. The browser downloads only the needed first-letter lookup shard and definition shard for ordinary queries. The offline button explicitly caches the whole dictionary, subject to device storage limits.
+
+### New editorial vocabulary and quality
+
+- New candidate idioms, slang, rude expressions, and conversational terms are maintained in lexicon/idioms.json, labelled **Editorial** to distinguish them from sourced lexicons.
+- Wiktionary sense labels such as *archaic*, *rare*, *literary*, *figurative*, *colloquial*, and *vulgar* are now retained when supplied by the input data.
+- Editorial senses are **not independently lexicographically reviewed**. Do not treat their proposed definitions as authoritative until they have been audited. See CONTRIBUTING.md.
+- HMT and Dehkhoda retain their existing verified snapshots. Kaikki was refreshed to the October 2026 Wiktionary extraction on November 16, with the exact new SHA-256 and byte size pinned in sources.lock.json. Full-export verification checks the merged dataset.
+- Some generated inflected forms may still be linguistically unnatural. Lookup aliases must always be distinguished from independent sourced definitions.
+
+
 ## Installing on a Kindle
 
 1. Download `Morads-Persian-English-Dictionary.mobi` from the Releases page.

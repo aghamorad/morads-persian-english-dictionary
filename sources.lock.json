@@ -1,5 +1,5 @@
 {
-  "retrieved_on": "2026-09-19",
+  "retrieved_on": "2026-11-16",
   "sources": {
     "hmt": {
       "filename": "hmt-body.data",
@@ -18,9 +18,11 @@
     "kaikki": {
       "filename": "kaikki-persian.jsonl",
       "url": "https://kaikki.org/dictionary/Persian/kaikki.org-dictionary-Persian.jsonl",
-      "sha256": "93ef314907791fff4204ee86f2c9012141d50dff8ecc5b16f325a4dc1d111ed6",
-      "bytes": 91289908,
-      "license": "Wiktionary CC BY-SA 4.0 and GFDL"
+      "sha256": "c5fda57f5593fc256570a5e146c4ac5b6b239906aae781eca1d02b2022a03482",
+      "bytes": 95770880,
+      "license": "Wiktionary CC BY-SA 4.0 and GFDL",
+      "upstream_extracted_on": "2026-10-30",
+      "wiktionary_dump": "2026-10-01"
     }
   }
 }

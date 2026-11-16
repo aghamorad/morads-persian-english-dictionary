@@ -42,8 +42,15 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+## Editorial candidate additions
+
+The locally authored definitions in lexicon/idioms.json are distinct from the upstream dictionaries and are marked Editorial in Kindle and browser entries. These definitions were drafted for review and have not undergone independent lexicographic verification. They are not attributed to Wiktionary, Dehkhoda, or HMT.
+
+The compilation remains subject to the source attribution and ShareAlike obligations explained above. Copyright and licence conditions of external datasets must be verified before any new third-party material is imported.
+
 ## Snapshot integrity
 
-The source snapshot date is September 19, 2026. Exact URLs, file sizes, licences, and SHA-256 checksums for all three inputs are recorded in `sources.lock.json`.
+The source lockfile was refreshed on November 16, 2026. HMT and Dehkhoda retain the previously verified snapshots; the Kaikki Persian extraction reflects Wiktionary's October 2026 dump. Exact source URLs, file sizes, licences, and SHA-256 checksums are recorded in `sources.lock.json`.
 
 The build process preserves source labels in dictionary entries, merges equivalent Persian spellings, and does not invent new definitions. Generated lookup aliases redirect only to an existing sourced entry.
