@@ -1,0 +1,819 @@
+[
+  {
+    "word": "آب از آب تکان نخورد",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "nothing happened; no disturbance or consequence followed",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "آب پاکی روی دست کسی ریختن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to give someone a final, unequivocal refusal; to extinguish their hopes",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "آب توی دل کسی تکان نخوردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to remain perfectly comfortable and untroubled",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "آتش‌بیار معرکه",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "an instigator who stirs up trouble or intensifies a quarrel",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "آسمان ریسمان بافتن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to string together far-fetched excuses or irrelevant arguments",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "از کوره در رفتن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to lose one's temper; fly off the handle",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "از دماغ فیل افتادن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to act haughty or excessively self-important",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "از این ستون به آن ستون فرج است",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "delaying an unpleasant decision may allow a solution or relief to emerge",
+        "labels": [
+          "proverb"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "از هول حلیم توی دیگ افتادن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to rush greedily or impatiently into something and end up in trouble",
+        "labels": [
+          "proverb"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "انگشت به دهان ماندن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to be left speechless with astonishment",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "به روی خود نیاوردن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to pretend not to notice or know something",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "بوق سگ",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "an unreasonably late hour, especially late at night",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "پاپیچ کسی شدن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to pester or hassle someone persistently",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "پاچه‌خواری",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "sycophancy; shameless flattery to gain favour",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "پاچه‌خوار",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "a sycophant; a bootlicker",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "تا خرخره",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "up to the neck; to an overwhelming degree",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "تخس",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "naughty, cheeky, or stubbornly mischievous",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "چرت و پرت",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "nonsense; foolish or meaningless talk",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "چس‌ناله",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "petty, incessant complaining; self-pitying whining",
+        "labels": [
+          "slang",
+          "vulgar"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "خالی بستن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to make things up; to boast dishonestly; to tell tall tales",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "خرکی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "rough, crude, or recklessly heavy-handed",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "دبه درآوردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to back out of an agreement or suddenly change the agreed terms",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "دم‌دستی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "readily available; commonplace; makeshift",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "دست به سر کردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to fob someone off or get rid of them with excuses",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "دست کسی رو شدن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "for someone's deception, secret, or true intentions to be exposed",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "دوزاری کسی افتادن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "for someone finally to understand what is going on; for the penny to drop",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "روی مخ رفتن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to get on someone's nerves; irritate intensely",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "زدن به سیم آخر",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to throw caution to the wind; act recklessly in anger or desperation",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "سر کسی شیره مالیدن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to deceive someone; pull the wool over their eyes",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "سر به هوا",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "absent-minded; distracted; inattentive",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "سر و ته چیزی را هم آوردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to finish something hastily or superficially, cutting corners",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "سوتی دادن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to make an embarrassing blunder or slip",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "ضدحال",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "a disappointment or something that spoils the mood; a buzzkill",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "قاطی پاتی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "mixed up; jumbled; disorganised",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "گند زدن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to make a terrible mess of something; screw it up",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "گوش به زنگ",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "alert; watchful; on the lookout",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "ماست‌مالی کردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to cover up an error or wrongdoing with excuses or superficial fixes",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "مفت‌خور",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "a freeloader; someone who lives off others without contributing",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "مچ کسی را گرفتن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to catch someone in the act of wrongdoing; catch red-handed",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "مو را از ماست کشیدن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to examine something minutely or notice the smallest faults and details",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "نخود هر آش",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "a meddlesome person who involves themselves in everything",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "ول معطل بودن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to be left waiting in vain or without a realistic prospect of success",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "یارو",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "that fellow; that guy, often with a dismissive or familiar tone",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "زپرتی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "shoddy, flimsy, or run-down",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "زرشک",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "an ironic exclamation of disbelief or dismissal; 'yeah, right!'",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "کل‌کل کردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to engage in competitive verbal sparring or teasing",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "چلمن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "an inept, clumsy, or foolish person",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "توی هپروت بودن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to be lost in a daydream; oblivious to one's surroundings",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "هر کی هر کی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "a free-for-all; a situation where no rules or authority are respected",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "الکی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "for no good reason; pointlessly; falsely or merely for show",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "به فنا رفتن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to be ruined, wasted, or destroyed",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "سوتی",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "an embarrassing mistake or gaffe",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "پیچاندن",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to avoid an obligation or deliberately evade or stand someone up",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "گیر دادن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to pester someone; pick on them; make a fuss about something",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "کم آوردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to be unable to keep up, cope, or meet a demand",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "چپ‌چپ نگاه کردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to give someone a hostile or disapproving look",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "کشک و پشم",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "nonsense; worthless or meaningless talk",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "شاخ",
+    "pos": "noun",
+    "senses": [
+      {
+        "gloss": "an influential, famous, or boastfully prominent person, especially on social media",
+        "labels": [
+          "slang",
+          "Internet"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "شاخ شدن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to become unusually prominent or famous",
+        "labels": [
+          "slang"
+        ]
+      },
+      {
+        "gloss": "to become confrontational or act tough",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "جا زدن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to lose one's nerve; back out at the last moment",
+        "labels": [
+          "colloquial"
+        ]
+      },
+      {
+        "gloss": "to pass off a person or thing as something else",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "قاطی کردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to become confused or lose track of what is happening",
+        "labels": [
+          "colloquial"
+        ]
+      },
+      {
+        "gloss": "to lose one's temper or composure",
+        "labels": [
+          "colloquial"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "ترکاندن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to perform spectacularly well; be a huge success",
+        "labels": [
+          "slang"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "به درک",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "to hell with it, him, or her; an expression of angry indifference",
+        "labels": [
+          "colloquial",
+          "impolite"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "به تخمم",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "I couldn't give a damn; I don't care in the slightest",
+        "labels": [
+          "slang",
+          "vulgar"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "گه نخور",
+    "pos": "phrase",
+    "senses": [
+      {
+        "gloss": "shut up; stop talking nonsense or overstepping your bounds (a strongly offensive rebuke)",
+        "labels": [
+          "vulgar"
+        ]
+      }
+    ]
+  },
+  {
+    "word": "نان به نرخ روز خوردن",
+    "pos": "verb",
+    "senses": [
+      {
+        "gloss": "to change one's views or loyalties opportunistically for personal advantage",
+        "labels": [
+          "idiom"
+        ]
+      }
+    ],
+    "variants": [
+      "نون به نرخ روز خوردن"
+    ]
+  }
+]
