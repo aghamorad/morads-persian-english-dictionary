@@ -1,0 +1,47 @@
+name: Verify full dictionary export
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download and verify pinned source snapshots
+        run: python fetch_sources.py
+      - name: Export the complete browser dictionary
+        run: |
+          python export_web.py \
+            --hmt-body data/hmt-body.data \
+            --dehkhoda data/dehkhoda-lexicon.json \
+            --kaikki data/kaikki-persian.jsonl \
+            --cover build/cover.png --out site
+      - name: Smoke-test actual exported terms
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from make_source import merge_key
+          root = Path("site/data")
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
+          assert manifest["entries"] >= 79_500, manifest
+          assert manifest["lookup_terms"] >= 800_000, manifest
+          for term in ("از کوره در رفتن", "چس‌ناله", "کتاب", "خانه"):
+              folded = merge_key(term)
+              shard = f"{ord(folded[0]):04x}"
+              index = json.loads((root / "index" / f"{shard}.json").read_text(encoding="utf-8"))
+              assert folded in index, term
+              target = index[folded]
+              target_shard = f"{ord(target[0]):04x}"
+              entries = json.loads((root / "entries" / f"{target_shard}.json").read_text(encoding="utf-8"))
+              assert entries[target]["sources"], term
+          print(manifest)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dictionary-web-build-manifest
+          path: site/data/manifest.json
