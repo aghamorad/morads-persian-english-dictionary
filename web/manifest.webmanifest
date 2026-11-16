@@ -21,5 +21,14 @@
       "type": "image/png",
       "purpose": "any"
     }
-  ]
+  ],
+  "id": "./",
+  "share_target": {
+    "action": "./",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "text": "q"
+    }
+  }
 }
