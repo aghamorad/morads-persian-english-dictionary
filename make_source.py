@@ -21,7 +21,12 @@ ZWJ = "\u200d"
 TATWEEL = "\u0640"
 PERSIAN_RUN = re.compile(r"[\u0600-\u06ff\u200c\u200d]+(?:[ -][\u0600-\u06ff\u200c\u200d]+)*")
 HMT_ENTRY = re.compile(r'<d:entry\b[^>]*?d:title="(.*?)"[^>]*>(.*?)</d:entry>', re.S)
-SOURCE_PRIORITY = {"Wiktionary": 0, "Dehkhoda-Lexicon": 1, "HMT": 2}
+SOURCE_PRIORITY = {"Wiktionary": 0, "Editorial": 1, "Dehkhoda-Lexicon": 2, "HMT": 3}
+REGISTER_LABELS = frozenset({
+    "archaic", "colloquial", "dated", "derogatory", "dialectal", "figurative",
+    "formal", "idiom", "idiomatic", "impolite", "informal", "Internet",
+    "literary", "obsolete", "proverb", "rare", "regional", "slang", "vulgar",
+})
 DISPLAY_TRANSLATION = str.maketrans({
     "ي": "ی",
     "ى": "ی",
@@ -131,6 +136,32 @@ def add_definition(entry: LexiconEntry, source: str, definition: str) -> None:
         entry.definitions[source].append(definition)
 
 
+def labelled_definition(gloss: str, labels: list[str] | set[str]) -> str:
+    """Expose register without turning labels into fabricated meanings."""
+    accepted = sorted({label for label in labels if label in REGISTER_LABELS})
+    return f"[{', '.join(accepted)}] {gloss}" if accepted else gloss
+
+
+def load_editorial(path: Path, entries: dict[str, LexiconEntry]) -> None:
+    """Small, original, reviewable additions. No unlicensed scraped material."""
+    records = json.loads(path.read_text(encoding="utf-8"))
+    for record in records:
+        entry = get_entry(entries, record["word"], "Editorial")
+        if entry is None:
+            raise ValueError(f"invalid editorial headword: {record['word']!r}")
+        if record.get("pos"):
+            entry.parts_of_speech.add(record["pos"])
+        for sense in record["senses"]:
+            add_definition(
+                entry, "Editorial",
+                labelled_definition(sense["gloss"], sense.get("labels", [])),
+            )
+        for variant in record.get("variants", []):
+            if not valid_word(normalize_word(variant)):
+                raise ValueError(f"invalid editorial variant: {variant!r}")
+            entry.forms.add(raw_word(variant))
+
+
 def load_kaikki(path: Path, entries: dict[str, LexiconEntry]) -> None:
     with path.open(encoding="utf-8") as source:
         for line in source:
@@ -142,8 +173,9 @@ def load_kaikki(path: Path, entries: dict[str, LexiconEntry]) -> None:
             if part_of_speech:
                 entry.parts_of_speech.add(part_of_speech)
             for sense in record.get("senses", []):
-                for gloss in sense.get("glosses", []):
-                    add_definition(entry, "Wiktionary", gloss)
+                labels = set(sense.get("tags", [])) | set(sense.get("raw_tags", []))
+                for gloss in sense.get("glosses") or sense.get("raw_glosses") or []:
+                    add_definition(entry, "Wiktionary", labelled_definition(gloss, labels))
             for form_record in record.get("forms", []):
                 tags = set(form_record.get("tags", []))
                 if tags & {"romanization", "table-tags", "inflection-template"}:
@@ -284,7 +316,7 @@ def kindle_entry(number: int, entry: LexiconEntry, aliases: list[str]) -> str:
     orth.append("</idx:orth>")
     sources = "".join(
         source_block(source, entry.definitions[source])
-        for source in ("Wiktionary", "HMT", "Dehkhoda-Lexicon")
+        for source in ("Wiktionary", "Editorial", "HMT", "Dehkhoda-Lexicon")
         if entry.definitions.get(source)
     )
     parts = ""
@@ -333,8 +365,9 @@ def write_opf(root: Path) -> None:
 
 def write_source(root: Path, cover: Path, entries: dict[str, LexiconEntry]) -> dict[str, int]:
     root.mkdir(parents=True, exist_ok=True)
-    aliases, conflicts = assign_aliases(entries)
     usable_entries = [entry for entry in entries.values() if any(entry.definitions.values())]
+    # Empty source records must not reserve aliases and make real entries unfindable.
+    aliases, conflicts = assign_aliases({entry.key: entry for entry in usable_entries})
     usable_entries.sort(key=lambda entry: entry.headword)
     rendered = [kindle_entry(number, entry, aliases[entry.key]) for number, entry in enumerate(usable_entries, 1)]
     document = '''<?xml version="1.0" encoding="utf-8"?>
@@ -353,6 +386,7 @@ def write_source(root: Path, cover: Path, entries: dict[str, LexiconEntry]) -> d
         "aliases": sum(len(aliases[entry.key]) for entry in usable_entries),
         "alias_conflicts_skipped": conflicts,
         "wiktionary_entries": sum(bool(entry.definitions.get("Wiktionary")) for entry in usable_entries),
+        "editorial_entries": sum(bool(entry.definitions.get("Editorial")) for entry in usable_entries),
         "hmt_entries": sum(bool(entry.definitions.get("HMT")) for entry in usable_entries),
         "dehkhoda_entries": sum(bool(entry.definitions.get("Dehkhoda-Lexicon")) for entry in usable_entries),
     }
@@ -365,6 +399,7 @@ def main() -> None:
     parser.add_argument("--hmt-body", type=Path, required=True)
     parser.add_argument("--dehkhoda", type=Path, required=True)
     parser.add_argument("--kaikki", type=Path, required=True)
+    parser.add_argument("--editorial", type=Path, default=Path(__file__).resolve().parent / "lexicon/idioms.json")
     parser.add_argument("--cover", type=Path, default=Path("build/cover.png"))
     parser.add_argument("--out", type=Path, default=Path("build/source"))
     args = parser.parse_args()
@@ -372,6 +407,7 @@ def main() -> None:
     load_kaikki(args.kaikki, entries)
     load_dehkhoda(args.dehkhoda, entries)
     load_hmt(args.hmt_body, entries)
+    load_editorial(args.editorial, entries)
     stats = write_source(args.out, args.cover, entries)
     print(json.dumps(stats, ensure_ascii=False, sort_keys=True))
 
