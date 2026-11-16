@@ -79,13 +79,13 @@ The following all resolve in the published candidate using `kindling-cli lookup`
 
 Kindling's final MOBI self-check reports **18 P0 checks passed and 0 P1 warnings**.
 
-## Browser edition for macOS, Windows, Android and iPhone (proposed)
+## Browser edition for macOS, Windows, Android and iPhone
 
 The same sourced lexicon can now be exported as a **static browser dictionary**, with no central lookup server, API subscription, or account required. It provides a responsive Persian search field, exact matches, spelling normalization, prefix suggestions, distinct source definitions, and one-click saving of the full data for offline use in a modern browser. It also includes a web app manifest and service worker, so users can add it to their home screen where supported.
 
-This is **not yet the published version**: the statistics and Kindle download above describe the existing 1.1.0 release. The cross-platform exporter and new editorial senses are proposed repository changes until built, reviewed and deployed. They do not change the current downloadable MOBI on their own.
+The cross-platform exporter, browser application, source updates and editorial candidate vocabulary were merged into `main` on November 16, 2026. GitHub Actions now builds and deploys the browser edition. The statistics and Kindle download above still describe the existing 1.1.0 Kindle release; the MOBI itself has not yet been rebuilt or replaced.
 
-After publishing the code to main, go to **Repository Settings → Pages → Build and deployment → Source: GitHub Actions** to enable the deployment workflow. The resulting site will be served through GitHub Pages; do not advertise a URL until that deployment succeeds. The web edition is not a native Apple Dictionary, Windows Dictionary, or Android system lookup provider. It is an installable browser-based lookup tool.
+For the live browser edition, the repository must have **Settings → Pages → Build and deployment → Source: GitHub Actions** enabled. The deployment workflow is configured in the repository. Do not advertise a live URL until that workflow completes successfully. The web edition is not a native Apple Dictionary, Windows Dictionary, or Android system lookup provider. It is an installable browser-based lookup tool.
 
 To build the web edition locally (after running fetch_sources.py):
 
