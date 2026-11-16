@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#19362f">
+  <meta name="description" content="A freely accessible Persian–English dictionary with literary, colloquial and idiomatic meanings.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./cover.png" type="image/png">
+  <title>Morad's Persian–English Dictionary</title>
+  <style>
+    :root{color-scheme:light;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f3ec;color:#172e28}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh} a{color:#245c50}
+    header{padding:26px clamp(18px,5vw,64px);border-bottom:1px solid #d6d7cf;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .wordmark{font:600 15px/1.35 Georgia,serif;letter-spacing:.015em}.kicker{font:600 11px/1.5 ui-sans-serif,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#65776e}
+    main{max-width:820px;margin:0 auto;padding:clamp(22px,6vw,70px) 20px 50px}
+    h1{font:normal clamp(30px,5vw,51px)/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.035em;margin:12px 0 14px}
+    .sub{font-size:15px;line-height:1.6;color:#5c6c61;max-width:600px;margin-bottom:30px}
+    .search{display:flex;gap:8px;align-items:center;position:relative}
+    input{width:100%;min-width:0;border:1.5px solid #9eafa5;background:#fff;padding:16px 20px;border-radius:12px;font:25px/1.6 Tahoma,"Noto Naskh Arabic",sans-serif;color:#19362f;outline:none}
+    input:focus{border-color:#1b6952;box-shadow:0 0 0 3px #1b69521a}
+    button{cursor:pointer;font:600 13px ui-sans-serif,sans-serif;border:1px solid #cbd1c8;background:#fff;color:#264b42;padding:11px 13px;border-radius:9px}
+    button:hover{border-color:#628478;background:#f4f8f5} button:disabled{opacity:.55;cursor:default}
+    .offline{white-space:nowrap} #status{margin:14px 0 16px;color:#65776e;font-size:12px;min-height:18px}
+    #results{min-height:140px}
+    .entry{background:#fff;border:1px solid #e0e1d8;border-radius:16px;padding:clamp(18px,4vw,32px);box-shadow:0 8px 30px #172e2809}
+    .entry h2{font:600 38px/1.6 Tahoma,"Noto Naskh Arabic",sans-serif;margin:0;text-align:right}
+    .pos{font:12px ui-sans-serif,sans-serif;color:#748278;margin:0 0 14px}
+    .source{margin:23px 0 0;border-top:1px solid #e8e9e3;padding-top:14px}
+    .source h3{margin:0 0 9px;color:#6b7b70;letter-spacing:.045em;font-size:12px}
+    ol{margin:0;padding:0 0 0 24px;line-height:1.75} li{padding:0 0 10px 4px}
+    .tag{display:inline-block;background:#e9f0ea;color:#32644d;padding:1px 6px;margin:0 6px 0 0;font:11px/1.7 ui-sans-serif,sans-serif;border-radius:4px}
+    .suggestions{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin-top:15px}
+    .suggestions button{text-align:right;font:19px/1.6 Tahoma,sans-serif;background:#fff}
+    .empty{line-height:1.65;color:#66786c;margin:25px 0}
+    footer{margin:55px 0 8px;border-top:1px solid #d9ddd4;padding:22px 0;color:#6a796f;font-size:12px;line-height:1.7}
+    footer a{margin-right:12px} @media(max-width:540px){header{padding:20px}main{padding:28px 18px} .search{flex-wrap:wrap} .offline{width:100%}}
+    @media(prefers-color-scheme:dark){:root{color-scheme:dark;background:#111d1a;color:#e5eee6}header{border-color:#33453d}.sub,.empty,#status,footer{color:#a1b5a9}input,.entry,.suggestions button,button{background:#1c2b25;color:#e5eee6;border-color:#436152}.source,footer{border-color:#33453d}.tag{background:#294739;color:#c2e1c8}a{color:#a7dec6}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wordmark">Morad's Persian–English Dictionary</div>
+  <div class="kicker">Independent lexicon</div>
+</header>
+<main>
+  <div class="kicker">Persian → English</div>
+  <h1>Find the meaning,<br>not just the word.</h1>
+  <p class="sub">Literary vocabulary, everyday Persian, idioms, slang and alternative spellings. Search in Persian on any modern browser, including phones and computers.</p>
+  <div class="search">
+    <input id="query" type="search" dir="rtl" lang="fa" spellcheck="false" autocomplete="off" placeholder="واژه یا اصطلاح را بنویسید…" aria-label="Persian word or expression">
+    <button class="offline" id="offline" type="button">Save for offline use</button>
+  </div>
+  <div id="status" role="status" aria-live="polite">Loading dictionary information…</div>
+  <div id="results" aria-live="polite"><p class="empty">Enter a Persian word or expression to begin.</p></div>
+  <footer>
+    Entries retain source labels. Definitions may disagree; Dehkhoda-Lexicon English glosses are human/AI-assisted translations.
+    <a href="https://github.com/aghamorad/morads-persian-english-dictionary/blob/main/LICENSE-NOTICE.md" rel="noopener">Sources &amp; licences</a>
+    <a href="https://github.com/aghamorad/morads-persian-english-dictionary/releases/latest" rel="noopener">Kindle edition</a>
+  </footer>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const query = $("query"), results = $("results"), status = $("status"), offline = $("offline");
+const STORE = "morad-persian-dictionary-v1";
+const loaded = new Map();
+let manifest, serial = 0, debounce;
+
+function normalize(value) {
+  return value.normalize("NFKC")
+    .replace(/[\u0640\u200c\u200d]/g, "")
+    .replace(/[يى]/g, "ی").replace(/ك/g, "ک")
+    .replace(/[ۀة]/g, "ه").replace(/[إأٱ]/g, "ا")
+    .replace(/\p{Mn}/gu, "").replace(/\s+/g, " ").trim();
+}
+function shard(term) { return term.codePointAt(0).toString(16).padStart(4, "0"); }
+function paragraph(text, className) {
+  const p = document.createElement("p"); p.className = className || ""; p.textContent = text; return p;
+}
+async function json(path) {
+  if (!loaded.has(path)) {
+    const promise = fetch("./" + path).then(r => {
+      if (!r.ok) throw new Error("Could not load " + path);
+      return r.json();
+    }).catch(e => { loaded.delete(path); throw e; });
+    loaded.set(path, promise);
+  }
+  return loaded.get(path);
+}
+async function showEntry(key) {
+  const entries = await json("data/entries/" + shard(key) + ".json");
+  const entry = entries[key];
+  if (!entry) throw new Error("The entry was not found");
+  const article = document.createElement("article"); article.className = "entry";
+  const title = document.createElement("h2"); title.dir = "rtl"; title.lang = "fa"; title.textContent = entry.word; article.append(title);
+  if (entry.pos.length) article.append(paragraph(entry.pos.join(" · "), "pos"));
+  for (const [name, meanings] of Object.entries(entry.sources)) {
+    const section = document.createElement("section"); section.className = "source";
+    const heading = document.createElement("h3"); heading.textContent = name; section.append(heading);
+    const list = document.createElement("ol"); list.dir = "ltr";
+    for (const meaning of meanings) {
+      const li = document.createElement("li");
+      const match = meaning.match(/^\[([^\]]+)\]\s*(.*)$/s);
+      if (match) {
+        for (const tag of match[1].split(", ")) {
+          const badge = document.createElement("span"); badge.className = "tag"; badge.textContent = tag;
+          li.append(badge);
+        }
+        li.append(document.createTextNode(match[2]));
+      } else li.textContent = meaning;
+      list.append(li);
+    }
+    section.append(list); article.append(section);
+  }
+  results.replaceChildren(article);
+}
+function lowerBound(items, target) {
+  let lo = 0, hi = items.length;
+  while (lo < hi) { const mid = (lo + hi) >> 1; if (items[mid] < target) lo = mid + 1; else hi = mid; }
+  return lo;
+}
+function showSuggestions(index, term) {
+  results.replaceChildren();
+  const keys = Object.keys(index).sort();
+  const start = lowerBound(keys, term), seen = new Set(), suggestions = [];
+  for (let i = start; i < keys.length && suggestions.length < 18 && keys[i].startsWith(term); i++) {
+    const key = index[keys[i]];
+    if (!seen.has(key)) { seen.add(key); suggestions.push(keys[i]); }
+  }
+  if (!suggestions.length) { results.append(paragraph("No exact match or nearby terms found. Try another spelling or a shorter phrase.", "empty")); return; }
+  results.append(paragraph("No exact entry. Nearby terms:", "empty"));
+  const box = document.createElement("div"); box.className = "suggestions";
+  for (const suggestion of suggestions) {
+    const btn = document.createElement("button"); btn.type = "button"; btn.textContent = suggestion; btn.dir = "rtl"; btn.lang = "fa";
+    btn.addEventListener("click", () => { query.value = suggestion; lookup(); });
+    box.append(btn);
+  }
+  results.append(box);
+}
+async function lookup() {
+  const id = ++serial, term = normalize(query.value);
+  const url = new URL(location.href);
+  if (term) url.searchParams.set("q", query.value.trim());
+  else url.searchParams.delete("q");
+  history.replaceState(null, "", url);
+  if (!term) { results.replaceChildren(paragraph("Enter a Persian word or expression to begin.", "empty")); return; }
+  try {
+    status.textContent = "Searching…";
+    const index = await json("data/index/" + shard(term) + ".json");
+    if (id !== serial) return;
+    if (Object.hasOwn(index, term)) await showEntry(index[term]);
+    else showSuggestions(index, term);
+    if (id === serial) status.textContent = manifest.entries.toLocaleString() + " entries · " + manifest.lookup_terms.toLocaleString() + " searchable forms";
+  } catch (e) {
+    if (id === serial) {
+      results.replaceChildren(paragraph("This word could not be loaded. Connect to the internet or save the full dictionary for offline use.", "empty"));
+      status.textContent = "Lookup unavailable";
+    }
+  }
+}
+async function saveOffline() {
+  if (!("caches" in window) || !manifest) { status.textContent = "Offline storage is unavailable in this browser."; return; }
+  const paths = ["index.html", "manifest.webmanifest", "sw.js", "cover.png", "data/manifest.json"]
+    .concat(manifest.index_shards.map(s => "data/index/" + s + ".json"))
+    .concat(manifest.entry_shards.map(s => "data/entries/" + s + ".json"));
+  offline.disabled = true;
+  try {
+    const cache = await caches.open(STORE);
+    for (let i = 0; i < paths.length; i++) {
+      const url = new URL("./" + paths[i], location.href);
+      const response = await fetch(url, {cache:"reload"});
+      if (!response.ok) throw new Error("Download failed");
+      await cache.put(url, response);
+      status.textContent = "Saving full dictionary: " + (i+1) + " of " + paths.length + " files";
+    }
+    status.textContent = "Dictionary saved in this browser for offline use. Browser storage may be cleared by the device.";
+    offline.textContent = "Refresh offline copy";
+  } catch (e) { status.textContent = "Could not complete offline saving. Check the connection and available storage, then try again."; }
+  finally { offline.disabled = false; }
+}
+query.addEventListener("input", () => { clearTimeout(debounce); debounce = setTimeout(lookup, 130); });
+query.addEventListener("keydown", e => { if (e.key === "Enter") { clearTimeout(debounce); lookup(); } });
+offline.addEventListener("click", saveOffline);
+(async () => {
+  try {
+    manifest = await json("data/manifest.json");
+    status.textContent = manifest.entries.toLocaleString() + " entries · " + manifest.lookup_terms.toLocaleString() + " searchable forms";
+    query.value = new URL(location.href).searchParams.get("q") || "";
+    if (query.value) await lookup();
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => {});
+  } catch (e) { status.textContent = "Dictionary index is unavailable. Check your connection."; }
+})();
+</script>
+</body>
+</html>
