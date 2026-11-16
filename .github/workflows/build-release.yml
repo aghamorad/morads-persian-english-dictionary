@@ -1,0 +1,99 @@
+name: Build and publish v1.2.0 release
+
+on:
+  push:
+    branches:
+      - release/v1.2.0
+    paths:
+      - .release-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download and verify pinned lexical sources
+        run: python fetch_sources.py
+
+      - name: Install pinned Kindle dictionary compiler
+        run: |
+          mkdir -p tools
+          curl -fL https://github.com/ciscoriordan/kindling/releases/download/v0.46.2/kindling-cli-linux -o tools/kindling-cli
+          echo 'b61c883104c1f139313992d72e87e7c61617c31e59f5fe84748451b5cc6b11b0  tools/kindling-cli' | sha256sum --check
+          chmod +x tools/kindling-cli
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Build the Kindle dictionary
+        run: |
+          python make_source.py \
+            --hmt-body data/hmt-body.data \
+            --dehkhoda data/dehkhoda-lexicon.json \
+            --kaikki data/kaikki-persian.jsonl \
+            --cover build/cover.png \
+            --out build/source
+          tools/kindling-cli validate build/source/content.opf
+          tools/kindling-cli build build/source/content.opf -o build/Morads-Persian-English-Dictionary.mobi
+          python verify_build.py build/Morads-Persian-English-Dictionary.mobi
+
+      - name: Build the cross-platform browser edition
+        run: |
+          python export_web.py \
+            --hmt-body data/hmt-body.data \
+            --dehkhoda data/dehkhoda-lexicon.json \
+            --kaikki data/kaikki-persian.jsonl \
+            --cover build/cover.png --out site
+          (cd site && zip -qr ../build/Morads-Persian-English-Dictionary-Web.zip .)
+          cp site/data/manifest.json build/web-manifest.json
+          cp sources.lock.json build/sources.lock.json
+          sha256sum \
+            build/Morads-Persian-English-Dictionary.mobi \
+            build/Morads-Persian-English-Dictionary-Web.zip \
+            build/cover.png build/stats.json build/web-manifest.json \
+            build/sources.lock.json > build/SHA256SUMS.txt
+
+      - name: Upload reproducible build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: morads-persian-english-dictionary-v1.2.0
+          path: |
+            build/Morads-Persian-English-Dictionary.mobi
+            build/Morads-Persian-English-Dictionary-Web.zip
+            build/cover.png
+            build/stats.json
+            build/web-manifest.json
+            build/sources.lock.json
+            build/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.2.0
+          target_commitish: ${{ github.event.before }}
+          name: "Morad's Persian–English Dictionary v1.2.0"
+          body_path: docs/releases/v1.2.0.md
+          files: |
+            build/Morads-Persian-English-Dictionary.mobi
+            build/Morads-Persian-English-Dictionary-Web.zip
+            build/cover.png
+            build/stats.json
+            build/web-manifest.json
+            build/sources.lock.json
+            build/SHA256SUMS.txt
+          draft: false
+          prerelease: false
+          make_latest: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

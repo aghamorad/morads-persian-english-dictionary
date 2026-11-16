@@ -85,7 +85,20 @@ The same sourced lexicon can now be exported as a **static browser dictionary**,
 
 The cross-platform exporter, browser application, source updates and editorial candidate vocabulary were merged into `main` on November 16, 2026. GitHub Actions now builds and deploys the browser edition. The statistics and Kindle download above still describe the existing 1.1.0 Kindle release; the MOBI itself has not yet been rebuilt or replaced.
 
-For the live browser edition, the repository must have **Settings → Pages → Build and deployment → Source: GitHub Actions** enabled. The deployment workflow is configured in the repository. Do not advertise a live URL until that workflow completes successfully. The web edition is not a native Apple Dictionary, Windows Dictionary, or Android system lookup provider. It is an installable browser-based lookup tool.
+The deployment workflow builds and tests the site on every push. If GitHub Pages is enabled, it deploys automatically. If Pages is not yet enabled or the workflow token cannot access its settings, the build still succeeds and uploads the complete site as a `persian-dictionary-web` Actions artifact; deployment is skipped rather than failing. To publish, open **Settings → Pages → Build and deployment → Source: GitHub Actions**, save, then rerun the workflow or push a later commit. Do not advertise a live URL until a deployment run succeeds.
+
+### Installing the browser edition
+
+The browser edition is a Progressive Web App (PWA). It uses the same dictionary data on desktop and mobile:
+
+- **macOS (Safari 17 / macOS Sonoma 14 or newer):** open the published dictionary in Safari, choose **File → Add to Dock**, and launch it from the Dock like an app. In Chrome, use the install icon in the address bar or the browser menu's **Install app** command.
+- **Windows:** open it in Chrome or Edge and choose **Install** from the address bar or browser menu. It then opens in its own app window.
+- **Android:** open it in Chrome, choose **Install app** or **Add to Home screen**, and launch it from the home screen. On browsers that support PWA share targets, you can also share selected text to the installed dictionary.
+- **iPhone and iPad:** open it in Safari, tap **Share → Add to Home Screen**, then launch the saved icon. Search works inside the app; iOS does not provide the Android-style share-target integration here.
+
+On every platform, open the app once while online and press **Save for offline use**. Wait for the confirmation before disconnecting. This downloads the full lookup index and definitions into that browser's local storage. Browser storage can still be cleared by the user or the operating system.
+
+This is a browser-based lookup app, not a native macOS Dictionary.app dictionary, Windows system dictionary, or system-wide text-selection service. It requires no account, subscription, lookup API, or always-on dictionary server.
 
 To build the web edition locally (after running fetch_sources.py):
 
@@ -136,6 +149,17 @@ Requirements:
 - Python 3.11 or newer;
 - `kindling-cli` v0.45.5 in `tools/`;
 - approximately 120 MB for pinned source snapshots.
+
+For a Linux rebuild, install the exact CI compiler first:
+
+```bash
+mkdir -p tools
+curl -fL https://github.com/ciscoriordan/kindling/releases/download/v0.46.2/kindling-cli-linux -o tools/kindling-cli
+echo 'b61c883104c1f139313992d72e87e7c61617c31e59f5fe84748451b5cc6b11b0  tools/kindling-cli' | sha256sum -c -
+chmod +x tools/kindling-cli
+```
+
+The upstream project also publishes native Apple Silicon and Intel macOS binaries. The release workflow uses the pinned Linux binary above so builds are reproducible.
 
 Download and checksum the exact source snapshots:
 

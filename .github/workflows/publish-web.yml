@@ -1,18 +1,24 @@
-name: Publish browser dictionary
+name: Build and publish browser dictionary
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: github-pages
   cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.pages.outputs.enabled }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,13 +35,32 @@ jobs:
             --dehkhoda data/dehkhoda-lexicon.json \
             --kaikki data/kaikki-persian.jsonl \
             --cover build/cover.png --out site
-      - uses: actions/configure-pages@v5
+      - name: Detect whether GitHub Pages is enabled
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Site built; deployment skipped::The dictionary build succeeded. Enable GitHub Pages in Settings > Pages and choose GitHub Actions to publish the live site. The complete static site is available below as a workflow artifact."
+          fi
+      - name: Upload browser build for direct download
+        uses: actions/upload-artifact@v4
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
+          name: persian-dictionary-web
+          path: site/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Package Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: site/
+
   deploy:
+    if: needs.build.outputs.pages_enabled == 'true'
     environment:
       name: github-pages
     runs-on: ubuntu-latest
