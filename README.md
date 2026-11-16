@@ -2,9 +2,9 @@
 
 [![Latest release](https://img.shields.io/github/v/release/aghamorad/morads-persian-english-dictionary)](https://github.com/aghamorad/morads-persian-english-dictionary/releases/latest)
 
-A Persian → English lookup dictionary for Kindle, built from three reusable lexical sources and indexed for Persian as it is actually written.
+A Persian → English dictionary for Kindle and an installable browser lookup app for macOS, Windows, Android and iPhone, built from three reusable lexical sources and indexed for Persian as it is actually written.
 
-**79,511 canonical entries, indexed under 920,512 unique lookup terms.**
+**79,591 canonical entries, indexed under 921,287 unique Kindle lookup terms.** The browser edition contains 837,624 searchable forms.
 
 **[Download the latest release →](https://github.com/aghamorad/morads-persian-english-dictionary/releases/latest)**
 
@@ -14,14 +14,14 @@ A Persian → English lookup dictionary for Kindle, built from three reusable le
 
 | | |
 |---|---|
-| Version | 1.1.0 |
-| Canonical entries | 79,511 |
-| Indexed lookup terms | 920,512 |
+| Version | 1.2.0 |
+| Canonical entries | 79,591 |
+| Indexed lookup terms | 921,287 |
 | Direction | Persian → English |
-| Format | MOBI7 Kindle dictionary |
-| File size | 34,606,581 bytes |
+| Format | MOBI7 Kindle dictionary + browser PWA |
+| File size | 34,667,861 bytes (MOBI); 6,420,264 bytes (browser ZIP) |
 | Required lookup tests | 23/23 passing |
-| Build date | September 21, 2026 |
+| Build date | November 16, 2026 |
 
 The entries are merged by Kindle-equivalent Persian spelling, so Arabic/Persian character variants, combining marks, and zero-width non-joiners do not create competing duplicate entries.
 
@@ -83,7 +83,7 @@ Kindling's final MOBI self-check reports **18 P0 checks passed and 0 P1 warnings
 
 The same sourced lexicon can now be exported as a **static browser dictionary**, with no central lookup server, API subscription, or account required. It provides a responsive Persian search field, exact matches, spelling normalization, prefix suggestions, distinct source definitions, and one-click saving of the full data for offline use in a modern browser. It also includes a web app manifest and service worker, so users can add it to their home screen where supported.
 
-The cross-platform exporter, browser application, source updates and editorial candidate vocabulary were merged into `main` on November 16, 2026. GitHub Actions now builds and deploys the browser edition. The statistics and Kindle download above still describe the existing 1.1.0 Kindle release; the MOBI itself has not yet been rebuilt or replaced.
+The cross-platform exporter, browser application, source updates and editorial candidate vocabulary were merged into `main` on November 16, 2026. **v1.2.0 rebuilds the Kindle MOBI from the refreshed source snapshots and publishes the browser edition as a static PWA.** The Kindle index has 79,591 canonical entries and 921,287 lookup terms; the browser manifest reports 79,591 entries and 837,624 searchable forms. The two counts differ because the Kindle and browser exporters apply different indexing rules. See the release assets for exact statistics and checksums.
 
 The deployment workflow builds and tests the site on every push. If GitHub Pages is enabled, it deploys automatically. If Pages is not yet enabled or the workflow token cannot access its settings, the build still succeeds and uploads the complete site as a `persian-dictionary-web` Actions artifact; deployment is skipped rather than failing. To publish, open **Settings → Pages → Build and deployment → Source: GitHub Actions**, save, then rerun the workflow or push a later commit. Do not advertise a live URL until a deployment run succeeds.
 
