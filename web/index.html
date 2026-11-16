@@ -88,7 +88,7 @@ async function json(path) {
   }
   return loaded.get(path);
 }
-async function showEntry(key) {
+async function showEntry(key, requestId) {
   const entries = await json("data/entries/" + shard(key) + ".json");
   const entry = entries[key];
   if (!entry) throw new Error("The entry was not found");
@@ -113,7 +113,7 @@ async function showEntry(key) {
     }
     section.append(list); article.append(section);
   }
-  results.replaceChildren(article);
+  if (requestId === serial) results.replaceChildren(article);
 }
 function lowerBound(items, target) {
   let lo = 0, hi = items.length;
@@ -147,9 +147,14 @@ async function lookup() {
   if (!term) { results.replaceChildren(paragraph("Enter a Persian word or expression to begin.", "empty")); return; }
   try {
     status.textContent = "Searching…";
+    if (!manifest.index_shards.includes(shard(term))) {
+      results.replaceChildren(paragraph("No matching term found. Try another spelling or a shorter phrase.", "empty"));
+      status.textContent = manifest.entries.toLocaleString() + " entries";
+      return;
+    }
     const index = await json("data/index/" + shard(term) + ".json");
     if (id !== serial) return;
-    if (Object.hasOwn(index, term)) await showEntry(index[term]);
+    if (Object.hasOwn(index, term)) await showEntry(index[term], id);
     else showSuggestions(index, term);
     if (id === serial) status.textContent = manifest.entries.toLocaleString() + " entries · " + manifest.lookup_terms.toLocaleString() + " searchable forms";
   } catch (e) {
@@ -161,7 +166,7 @@ async function lookup() {
 }
 async function saveOffline() {
   if (!("caches" in window) || !manifest) { status.textContent = "Offline storage is unavailable in this browser."; return; }
-  const paths = ["index.html", "manifest.webmanifest", "sw.js", "cover.png", "data/manifest.json"]
+  const paths = ["index.html", "manifest.webmanifest", "sw.js", "icon.svg", "cover.png", "data/manifest.json"]
     .concat(manifest.index_shards.map(s => "data/index/" + s + ".json"))
     .concat(manifest.entry_shards.map(s => "data/entries/" + s + ".json"));
   offline.disabled = true;
