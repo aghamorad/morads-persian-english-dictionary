@@ -105,7 +105,7 @@ Open http://localhost:8000. The browser downloads only the needed first-letter l
 - New candidate idioms, slang, rude expressions, and conversational terms are maintained in lexicon/idioms.json, labelled **Editorial** to distinguish them from sourced lexicons.
 - Wiktionary sense labels such as *archaic*, *rare*, *literary*, *figurative*, *colloquial*, and *vulgar* are now retained when supplied by the input data.
 - Editorial senses are **not independently lexicographically reviewed**. Do not treat their proposed definitions as authoritative until they have been audited. See CONTRIBUTING.md.
-- Existing sources remain pinned to the September 2026 snapshots. Newer Kaikki extracts must be separately downloaded, checksum-verified and tested before integration; this change does not pretend to incorporate them.
+- HMT and Dehkhoda retain their existing verified snapshots. Kaikki was refreshed to the October 2026 Wiktionary extraction on November 16, with the exact new SHA-256 and byte size pinned in sources.lock.json. Full-export verification checks the merged dataset.
 - Some generated inflected forms may still be linguistically unnatural. Lookup aliases must always be distinguished from independent sourced definitions.
 
 
