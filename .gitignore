@@ -1,5 +1,8 @@
 build/apple-fa.xml
 build/source/
+build/ddksrc/
+build/objects/
+build/webdata/
 data/
 tools/
 __pycache__/
@@ -8,4 +11,5 @@ build/*.mobi
 build/*.zip
 build/SHA256SUMS.txt
 build/web-manifest.json
+dist/
 site/
