@@ -14,11 +14,11 @@ A Persian → English dictionary for Kindle and an installable browser lookup ap
 
 | | |
 |---|---|
-| Version | 1.2.0 |
+| Version | 1.3.0 |
 | Canonical entries | 79,591 |
 | Indexed lookup terms | 921,287 |
 | Direction | Persian → English |
-| Format | MOBI7 Kindle dictionary + browser PWA |
+| Format | MOBI7 Kindle dictionary + browser PWA + native Apple .dictionary |
 | File size | 34,667,861 bytes (MOBI); 6,420,264 bytes (browser ZIP) |
 | Required lookup tests | 23/23 passing |
 | Build date | November 16, 2026 |
@@ -112,6 +112,32 @@ python -m http.server --directory site 8000
 ```
 
 Open http://localhost:8000. The browser downloads only the needed first-letter lookup shard and definition shard for ordinary queries. The offline button explicitly caches the whole dictionary, subject to device storage limits.
+
+### Native macOS Dictionary.app source
+
+Since **v1.3.0** the same 79,591-entry lexicon is also published as a compiled
+**`.dictionary` bundle** for Apple's built-in Dictionary.app and system-wide
+**Look Up** — no browser, PWA or account needed.
+
+1. Download **`Morad's Persian-English Dictionary.dictionary.zip`** and `SHA256SUMS.txt`
+   from the Releases page. Optionally verify: `shasum -a 256 -c SHA256SUMS.txt`.
+2. Double-click the ZIP to extract **`Morad's Persian-English Dictionary.dictionary`**
+   (Finder shows it as one icon).
+3. In Finder press **Cmd+Shift+G**, type `~/Library/Dictionaries`, and move the bundle in.
+4. Quit and reopen **Dictionary**; open **Settings**, tick **Morad's Persian-English
+   Dictionary**, and drag it up to choose source order.
+5. Select a Persian word anywhere and choose **Look Up**, or search in Dictionary directly.
+
+Every canonical headword and all 837,624 indexed lookup forms (Arabic/Persian kaf and
+yeh variants, ZWNJ plurals, attached suffixes, ezafeh, possessives) are searchable. The
+compiler is Apple's Dictionary Development Kit, downloaded at build time (see the
+security note below). Both Intel and Apple Silicon Macs are supported at the data level;
+the builder may need Rosetta on Apple Silicon.
+
+> **Security note:** The macOS build fetches Apple's Dictionary Development Kit (DDK)
+> from a third-party mirror of Xcode's tools at build time. It is not bundled with this
+> repository and is not audited here; advanced users may substitute Apple's official
+> toolchain.
 
 ### New editorial vocabulary and quality
 
